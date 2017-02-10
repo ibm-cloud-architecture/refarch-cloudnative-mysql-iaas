@@ -1,0 +1,27 @@
+# Installs the SoftLayer CLI
+#pip install --upgrade pip
+#pip install softlayer
+
+. ./mysql.cfg
+
+echo Using the following SoftLayer configuration
+slcli config show
+
+echo Domain: $DOMAIN
+
+# Set the server type
+if [ $SERVER_TYPE  == "bare" ]; then
+  CLI_TYPE=server
+else
+  CLI_TYPE=vs
+fi
+
+
+# Creates the kube master
+slcli $CLI_TYPE list --domain $DOMAIN
+
+
+
+
+
+

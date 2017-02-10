@@ -21,7 +21,7 @@ if [ $SERVER_TYPE  == "bare" ]; then
 else
   SERVER_MESSAGE="virtual server"
   CLI_TYPE=vs
-  SPEC="--cpu $CPU --memory $MEMORY --os CENTOS_LATEST --disk 25 --disk 25"
+  SPEC="--cpu $CPU --memory $MEMORY --os UBUNTU_LATEST --disk 25 --disk 25"
   STATUS_FIELD="state"
   STATUS_VALUE="RUNNING"
 fi
@@ -163,12 +163,26 @@ function configure_node {
   set_ssh_key $PASSWORD $NODE_IP
 }
 
+#Args: $1: IP address
+function install_python {
+  echo Installing python
+
+  # SSH to host
+  ssh -o StrictHostKeyChecking=no root@$1 \
+  "add-apt-repository ppa:fkrull/deadsnakes && apt-get update && apt install -y python2.7 &&"\
+  " ln -fs /usr/bin/python2.7 /usr/bin/python" 
+
+}
+
+
 function configure_mysql {
   echo Configuring MySQL VM
   for(( x=1; x <= ${NUM_NODES}; x++))
   do
     configure_node "${VM_PREFIX}${x}"
   done
+
+  install_python $NODE_IP
 
   # Execute node playbook
   ansible-playbook -i $HOSTS ansible/mysql.yaml 
