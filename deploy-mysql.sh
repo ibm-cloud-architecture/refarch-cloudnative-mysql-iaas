@@ -185,7 +185,7 @@ function configure_mysql {
   install_python $NODE_IP
 
   # Execute node playbook
-  ansible-playbook -i $HOSTS ansible/mysql.yaml 
+  ansible-playbook -i $HOSTS ansible/mysql.yaml -e mysql_password=$MYSQL_PASSWORD
 }
 
 
@@ -213,6 +213,6 @@ update_hosts_file
 
 configure_mysql
 
-echo "Congratulations! Your MySQL environment is up and running at $NODE_IP!"
+echo "Congratulations! Your MySQL environment is up and running at $NODE_IP, using user admin password $MYSQL_PASSWORD!"
 
 

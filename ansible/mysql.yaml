@@ -5,6 +5,29 @@
   - name: Install MySQL server
     package: name=mysql-server update_cache=yes state=present
 
+#  - name: Copy mysql_secure_installation
+#    copy: src=mysql_secure_installation.sh dest=/root/
+
+#  - name: Setting the execution flag on mysql_secure_installation
+#    file: 
+#      path: /root/mysql_secure_installation.sh
+#      mode: u+x 
+
+#  - debug: msg="MySQL password is {{ mysql_password }}"
+
+#  - name: Run mysql_secure_installation
+#    shell: /root/mysql_secure_installation.sh {{ mysql_password }}
+
+#  - name: Install Python pip
+#    package: name=python-pip state=present
+
+  - name: Install Python mysql module
+    package: name=python-mysqldb state=present
+
+  - name: Create inventory database
+    mysql_db:
+      name: inventory
+      state: present
 
 
 
