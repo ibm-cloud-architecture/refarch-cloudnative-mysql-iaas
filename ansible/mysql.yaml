@@ -24,10 +24,31 @@
   - name: Install Python mysql module
     package: name=python-mysqldb state=present
 
+  - name: Create user for all IP addresses
+    mysql_user:
+      name: admin
+      password: "{{ mysql_password }}"
+      host: "%"
+      priv: '*.*:ALL'
+
   - name: Create inventory database
     mysql_db:
       name: inventory
       state: present
+      login_user: admin
+      login_password: "{{ mysql_password }}"
+
+  - name: Enable all interfaces
+    lineinfile:
+      dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+      regexp: bind-address
+      line: "# bind-address"
+
+  - name: Restart mysqld 
+    service:
+      name: mysql
+      state: restarted
+
 
 
 

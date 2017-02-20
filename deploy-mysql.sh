@@ -213,6 +213,6 @@ update_hosts_file
 
 configure_mysql
 
-echo "Congratulations! Your MySQL environment is up and running at $NODE_IP, using user admin password $MYSQL_PASSWORD!"
+echo -e "Congratulations. Your MySQL environment is up and running at\nHost: $NODE_IP\nuser: admin\npassword: $MYSQL_PASSWORD"
 
 
