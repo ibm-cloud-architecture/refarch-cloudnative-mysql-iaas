@@ -33,7 +33,7 @@
 
   - name: Create inventory database
     mysql_db:
-      name: inventory
+      name: inventorydb
       state: present
       login_user: admin
       login_password: "{{ mysql_password }}"
@@ -48,6 +48,12 @@
     service:
       name: mysql
       state: restarted
+
+  - name: Load data
+    script: load-data.sh
+    environment:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_password }}"
+      MYSQL_DATABASE: inventorydb
 
 
 
