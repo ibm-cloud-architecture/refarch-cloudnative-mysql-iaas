@@ -1,0 +1,3 @@
+[submodule "bluemix-infra-tools"]
+	path = bluemix-infra-tools
+	url = https://github.com/patrocinio/bluemix-infra-tools.git
