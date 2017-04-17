@@ -59,8 +59,8 @@ function install_python {
 
   # SSH to host
   ssh -o StrictHostKeyChecking=no root@$1 \
-  "add-apt-repository ppa:fkrull/deadsnakes && apt-get update && apt install -y python2.7 &&"\
-  " ln -fs /usr/bin/python2.7 /usr/bin/python" 
+  "if [ ! -f /usr/bin/python ]; then add-apt-repository ppa:fkrull/deadsnakes && apt-get update && apt install -y python2.7 &&"\
+  " ln -fs /usr/bin/python2.7 /usr/bin/python; fi" 
 
 }
 
